@@ -1,0 +1,28 @@
+CloneDefaultText
+=======================
+
+Introduction
+-------------------
+This is a new default text plugin, which does not modify the value of input. Instead, it creates a clone of that input and places on the exact same location.
+
+With this way, you won't have problems with default value being submitted.
+
+
+
+How to use it
+-------------------
+<input type="text" id="test_textbox" class="test" style="color: green">
+
+$('#test_textbox').default_text('this is default...');
+
+
+
+License
+------------------
+You can do whatever you want with it. Just give us some credit. (Apache License)
+
+
+Contributors
+-------------------
+Tanin Na Nakorn
+Sergiu Rata
