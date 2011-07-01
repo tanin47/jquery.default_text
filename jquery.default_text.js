@@ -36,11 +36,13 @@
 	                }
 	                
 	                var defaultClickHandler = function() {
-						if ($(real_obj).css('display') == 'none') {
-							$(default_obj).hide();
-							$(real_obj).show();
-							$(real_obj).focus();
-						}
+						setTimeout(function() {
+							if ($(real_obj).css('display') == 'none') {
+								$(default_obj).hide();
+								$(real_obj).show();
+								$(real_obj).focus();
+							}
+						},1);
 	                };
 	
 	                $(default_obj).click(defaultClickHandler);
@@ -48,10 +50,12 @@
 	                $(default_obj).focus(defaultClickHandler);
 	                
 	                $(real_obj).blur(function() {
-	                    if ($(real_obj).val() == "") {
-	                        $(default_obj).show();
-	                        $(real_obj).hide();
-	                    }
+						setTimeout(function() {
+		                    if ($(real_obj).val() == "") {
+		                        $(default_obj).show();
+		                        $(real_obj).hide();
+		                    }
+						},1);
 	                });
 					
 				} else
