@@ -13,6 +13,7 @@
 			
             var defaultTextClassName = opts.defaultClass != null ? opts.defaultClass : "jquery_default_text";
             var defaultIdSuffix = opts.defaultIdSuffix != null ? opts.defaultIdSuffix : "_default_text";
+			
 
             return this.each(function() {
                 var real_obj = this;
@@ -20,42 +21,57 @@
 				
 				if ($('#' + $(this)[0].id + defaultIdSuffix).length == 0) {
 					default_obj = $(this).clone();
-					$(default_obj).css('display',$(real_obj).css('display'));
-					$(default_obj).attr('name',$(real_obj).attr('name')+defaultIdSuffix);
-					$(default_obj).hide();
+					var real_offset = $(real_obj).offset();
+					if ($(real_obj).parent().css('position') == "")
+					{
+						$(real_obj).parent().css('position','relative');
+					}
+					$(default_obj).css('position','absolute');
+					$(default_obj).offset({ top: real_offset.top-2, left: real_offset.left-1});
+					$(default_obj).css('z-index','-1');
+					$(real_obj).css('z-index','0');
+
+					$(default_obj).css('display',$(real_obj).css('display'))
+					.attr('name',$(real_obj).attr('name')+defaultIdSuffix);
 					
 					$(default_obj).insertBefore(this);
 					$(default_obj).val(msg).addClass(defaultTextClassName).attr('id', $(this)[0].id + defaultIdSuffix);
 					
+					real_obj.save_background = $(real_obj).css('background-color');
+					real_obj.save_border = $(real_obj).css('border-color');
+					
+					
 					if ($(real_obj).val() == "") {
-	                    $(real_obj).hide();
-	                    $(default_obj).show();
+	                    $(real_obj).css('background-color','transparent');
+						$(real_obj).css('border-color','transparent');
+						
 	                } else {
-	                    $(real_obj).show();
-	                    $(default_obj).hide();
+						
+	                    $(real_obj).css('background-color',real_obj.save_background);
+						$(real_obj).css('border-color',real_obj.save_border);
+						
 	                }
 	                
 	                var defaultClickHandler = function() {
-						setTimeout(function() {
-							if ($(real_obj).css('display') == 'none') {
-								$(default_obj).hide();
-								$(real_obj).show();
-								$(real_obj).focus();
+						
+							if ($(real_obj).css('background-color') == 'transparent') {
+								
+								$(real_obj).css('background-color',real_obj.save_background);
+								$(real_obj).css('border-color',real_obj.save_border);
+								
 							}
-						},1);
+						
 	                };
 	
-	                $(default_obj).click(defaultClickHandler);
-	                $(default_obj).mousedown(defaultClickHandler);
-	                $(default_obj).focus(defaultClickHandler);
-	                
+	                $(real_obj).click(defaultClickHandler);
+
 	                $(real_obj).blur(function() {
-						setTimeout(function() {
+				
 		                    if ($(real_obj).val() == "") {
-		                        $(default_obj).show();
-		                        $(real_obj).hide();
+		                        $(real_obj).css('background-color','transparent');
+								$(real_obj).css('border-color','transparent');
+							
 		                    }
-						},1);
 	                });
 					
 				} else
