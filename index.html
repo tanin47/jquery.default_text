@@ -10,8 +10,9 @@
 
 	</head>
 	<body>
-		<input type="text" name="test" style="background-color:gray;" class="test"><br/>
-		<input type="text" id="test_textbox" name="test" style="background-color:gray;" class="test"><br/>
+		
+		<input type="text" name="test" class="test"><br/>
+		<input type="text" id="test_textbox" name="test" style="background-color:red;" class="test"><br/>
 		<textarea id="test_area"></textarea>
 	</body>
 	<script language="javascript">
@@ -20,5 +21,8 @@
 		$('#test_textbox').default_text("default");
 		$('#test_textbox').default_text("default again");
 		$('#test_area').default_text("default...");
+		function test_click(){
+			alert('click');
+		}
 	</script>
 </html>

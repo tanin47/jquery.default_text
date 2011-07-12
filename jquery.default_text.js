@@ -27,8 +27,8 @@
 						$(real_obj).parent().css('position','relative');
 					}
 					$(default_obj).css('position','absolute');
-					$(default_obj).offset({ top: real_offset.top-2, left: real_offset.left-1});
-					$(default_obj).css('z-index','-1');
+					$(default_obj).offset({ top: real_offset.top, left: real_offset.left});
+					$(default_obj).css('z-index','-100');
 					$(real_obj).css('z-index','0');
 
 					$(default_obj).css('display',$(real_obj).css('display'))
@@ -37,18 +37,21 @@
 					$(default_obj).insertBefore(this);
 					$(default_obj).val(msg).addClass(defaultTextClassName).attr('id', $(this)[0].id + defaultIdSuffix);
 					
+					
 					real_obj.save_background = $(real_obj).css('background-color');
 					real_obj.save_border = $(real_obj).css('border-color');
-					
-					
+			
 					if ($(real_obj).val() == "") {
 	                    $(real_obj).css('background-color','transparent');
 						$(real_obj).css('border-color','transparent');
+						$(real_obj).css('background-image','url("transparent.gif")');
+						
 						
 	                } else {
 						
 	                    $(real_obj).css('background-color',real_obj.save_background);
 						$(real_obj).css('border-color',real_obj.save_border);
+						$(real_obj).css('background-image','');
 						
 	                }
 	                
@@ -58,19 +61,21 @@
 								
 								$(real_obj).css('background-color',real_obj.save_background);
 								$(real_obj).css('border-color',real_obj.save_border);
+								$(real_obj).css('background-image','');
 								
 							}
 						
 	                };
 	
 	                $(real_obj).click(defaultClickHandler);
+					
 
 	                $(real_obj).blur(function() {
 				
 		                    if ($(real_obj).val() == "") {
 		                        $(real_obj).css('background-color','transparent');
 								$(real_obj).css('border-color','transparent');
-							
+								$(real_obj).css('background-image','url("transparent.gif")');
 		                    }
 	                });
 					
