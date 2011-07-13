@@ -27,8 +27,9 @@
 						$(real_obj).parent().css('position','relative');
 					}
 					$(default_obj).css('position','absolute');
-					$(default_obj).offset({ top: real_offset.top, left: real_offset.left});
+					$(default_obj).offset({ top: real_offset.top-1, left: real_offset.left-1});
 					$(default_obj).css('z-index','-100');
+					$(default_obj).attr('tabindex','-1');
 					$(real_obj).css('z-index','0');
 
 					$(default_obj).css('display',$(real_obj).css('display'))
@@ -37,46 +38,48 @@
 					$(default_obj).insertBefore(this);
 					$(default_obj).val(msg).addClass(defaultTextClassName).attr('id', $(this)[0].id + defaultIdSuffix);
 					
+					real_obj.show_default_text = function() {
+						
+						this.save_background = $(real_obj).css('background-color');
+						this.save_border = $(real_obj).css('border-color');
+						this.save_background_image = $(real_obj).css('background-image');
+						this.save_background_repeat = $(real_obj).css('background-repeat');
+						
+						$(this).css('background-color','transparent');
+						$(this).css('border-color','transparent');
+						$(this).css('background-image','url("data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==")');
+						$(this).css('background-repeat','repeat');
+					}
 					
-					real_obj.save_background = $(real_obj).css('background-color');
-					real_obj.save_border = $(real_obj).css('border-color');
+					real_obj.hide_default_text = function() {
+						$(this).css('background-color',real_obj.save_background);
+						$(this).css('border-color',real_obj.save_border);
+						$(this).css('background-image',real_obj.save_background_image);
+						$(this).css('background-repeat',real_obj.save_background_repeat);
+					}
 			
 					if ($(real_obj).val() == "") {
-	                    $(real_obj).css('background-color','transparent');
-						$(real_obj).css('border-color','transparent');
-						$(real_obj).css('background-image','url("transparent.gif")');
-						
-						
+	                    real_obj.show_default_text();
 	                } else {
-						
-	                    $(real_obj).css('background-color',real_obj.save_background);
-						$(real_obj).css('border-color',real_obj.save_border);
-						$(real_obj).css('background-image','');
-						
+						real_obj.hide_default_text();
 	                }
 	                
 	                var defaultClickHandler = function() {
 						
 							if ($(real_obj).css('background-color') == 'transparent') {
-								
-								$(real_obj).css('background-color',real_obj.save_background);
-								$(real_obj).css('border-color',real_obj.save_border);
-								$(real_obj).css('background-image','');
-								
+								real_obj.hide_default_text();
 							}
 						
 	                };
 	
-	                $(real_obj).click(defaultClickHandler);
+	                $(real_obj).focus(defaultClickHandler);
 					
 
 	                $(real_obj).blur(function() {
 				
 		                    if ($(real_obj).val() == "") {
-		                        $(real_obj).css('background-color','transparent');
-								$(real_obj).css('border-color','transparent');
-								$(real_obj).css('background-image','url("transparent.gif")');
-		                    }
+		                        real_obj.show_default_text();
+							}
 	                });
 					
 				} else
