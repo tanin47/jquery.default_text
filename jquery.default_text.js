@@ -3,6 +3,7 @@
  *  But don't fotget to give us some credit. (Apache License)
  *  - Tanin Na Nakorn
  *  - Sergiu Rata
+ *  - Nilobol Ariyamongkollert
  */
 (function($){
     $.fn.extend({         
