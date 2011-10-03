@@ -1,10 +1,9 @@
-CloneDefaultText
+jQuery.default_text
 =======================
 
-Introduction
--------------------
-This is a new default text plugin, which does not modify the value of input.
-Instead, it creates a clone of that input and places on the exact same location.
+This is a new default text plugin, which does not modify the value of an input.
+
+Instead, it creates a clone of the input and places on the exact same location.
 With this way, you won't have problems with default value being submitted.
 
 
