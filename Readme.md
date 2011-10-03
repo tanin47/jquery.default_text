@@ -19,10 +19,10 @@ It is only when the real textbox is focused, it is made opaque.
 
 Browser Compatibility
 ------------------
-MSIE 7.0
-Firefox/5.0 (Mozilla/5.0)
-Chrome/12.0.742.112 Safari/534.30 (Mozilla/5.0)
-iPhone Versionn/5.0.2 Mobile/8G4 Safari/6533.18.5 (Mozilla/5.0)
+* MSIE 7.0
+* Firefox/5.0 (Mozilla/5.0)
+* Chrome/12.0.742.112 Safari/534.30 (Mozilla/5.0)
+* iPhone Versionn/5.0.2 Mobile/8G4 Safari/6533.18.5 (Mozilla/5.0)
 
 
 How to use it
