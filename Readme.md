@@ -26,7 +26,7 @@ Browser Compatibility
 
 How to use it
 -------------------
-<input type="text" id="test_textbox" class="test" style="color: green">
+&lt;input type="text" id="test_textbox" class="test" style="color: green"&gt;
 
 $('#test_textbox').default_text('this is default...');
 
