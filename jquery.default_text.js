@@ -26,6 +26,8 @@
 					var marginLeft = $(real_obj).margin().left;
 					var marginTop = $(real_obj).margin().top;
 					
+					$(real_obj).css('resize', 'none');
+					
 					default_obj = $(this).clone();
 					$(default_obj).insertBefore(this);
 					
