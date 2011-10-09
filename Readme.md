@@ -4,9 +4,6 @@ jQuery.default_text
 jQuery.default_text elegantly solves the default text problem. 
 It eliminates [the need to remove default text before submission](http://stackoverflow.com/questions/1102895/default-text-on-input).
 
-It works by cloning a textbox and placing it exactly on top of the original textbox. 
-When user clicks on it, the default-text textbox disappears. 
-
 See demo: http://tanin.nanakorn.com/default_text
 
 
@@ -18,11 +15,13 @@ Alternative solution is to use HTML5's placeholder attribute. But, sadly, MSIE's
 
 How it works
 ------------------
-A text input, which contains a default text is cloned (using jQuery.clone()).
+A text input, which contains the default text, is cloned (using jQuery.clone()).
 Then, it is placed exactly behind the real textbox.
-And then we make the real textbox transparent.
+Then, we make the real textbox transparent.
 
 It is only when the real textbox is focused, it is made opaque.
+
+With the duplication of the textbox, It eliminates [the need to remove default text before submission](http://stackoverflow.com/questions/1102895/default-text-on-input).
 
 
 Tested Browsers
