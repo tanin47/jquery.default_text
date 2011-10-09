@@ -47,6 +47,13 @@ $('#test_textbox').default_text('this is default...', {defaultClass: "default"})
 ```
 
 
+The downside
+------------------
+* Native resizability of a textarea is disabled
+* Hiding a textbox (or a textarea) does not make the default element invisible.
+If you really to hide a textbox, then put it in a container, e.g. span, and hide the span instead.
+
+
 Authors
 -------------------
 * Tanin Na Nakorn
