@@ -1,12 +1,19 @@
 jQuery.default_text
 =======================
 
-This is a new default text plugin, which does not modify the value of an input.
+jQuery.default_text elegantly solves the default text problem. 
+It eliminates the need to remove a default text before form submission.
 
-Instead, it creates a clone of the input and places on the exact same location.
-With this way, you won't have problems with default value being submitted.
+It works by cloning a textbox and placing it exactly on top of the original textbox. 
+When user clicks on it, the default-text textbox disappears. 
 
 See demo: http://tanin.nanakorn.com/default_text
+
+
+Alternative solution
+---------------------
+
+Alternative solution is to use HTML5's placeholder attribute. But, sadly, MSIE's family has not support it yet.
 
 
 How it works
@@ -18,9 +25,10 @@ And then we make the real textbox transparent.
 It is only when the real textbox is focused, it is made opaque.
 
 
-Browser Compatibility
+Tested Browsers
 ------------------
 * MSIE 7.0
+* MSIE 9.0
 * Firefox/5.0 (Mozilla/5.0)
 * Chrome/12.0.742.112 Safari/534.30 (Mozilla/5.0)
 * iPhone Versionn/5.0.2 Mobile/8G4 Safari/6533.18.5 (Mozilla/5.0)
@@ -28,19 +36,27 @@ Browser Compatibility
 
 How to use it
 -------------------
-&lt;input type="text" id="test_textbox" class="test" style="color: green"&gt;
+Somewhere in your HTML:
+```HTML
+<input type="text" id="test_textbox" class="test" style="color: green">
+```
 
-$('#test_textbox').default_text('this is default...');
-
+And somewhere in your javascript code:
+```Javascript
+$('#test_textbox').default_text('this is default...', {defaultClass: "default"});
+```
 
 
 License
 ------------------
-Creative Commons 3.0
+jQuery.default_text is under Creative Commons 3.0.
+
+But it uses [jQuery.sizes](http://www.bramstein.com/projects/jsizes/), which is under the revised BSD License.
 
 
 
-Contributors
+
+Authors
 -------------------
 Tanin Na Nakorn
 Sergiu Rata

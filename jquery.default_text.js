@@ -21,23 +21,32 @@
 				var default_obj = null;
 				
 				if ($('#' + $(this)[0].id + defaultIdSuffix).length == 0) {
-					default_obj = $(this).clone();
-					var real_offset = $(real_obj).offset();
-					if ($(real_obj).parent().css('position') == "")
-					{
-						$(real_obj).parent().css('position','relative');
-					}
-					$(default_obj).css('position','absolute');
-					$(default_obj).offset({ top: real_offset.top-1, left: real_offset.left-1});
-					$(default_obj).css('z-index','-100');
-					$(default_obj).attr('tabindex','-1');
-					$(real_obj).css('z-index','0');
-
-					$(default_obj).css('display',$(real_obj).css('display'))
-					.attr('name',$(real_obj).attr('name')+defaultIdSuffix);
 					
+					var pos = $(real_obj).position();
+					var marginLeft = $(real_obj).margin().left;
+					var marginTop = $(real_obj).margin().top;
+					
+					default_obj = $(this).clone();
 					$(default_obj).insertBefore(this);
-					$(default_obj).val(msg).addClass(defaultTextClassName).attr('id', $(this)[0].id + defaultIdSuffix);
+					
+					$(default_obj).css({
+						position: 'absolute',
+						top: (pos.top + marginTop) + "px", 
+						left: (pos.left + marginLeft) + "px",
+						'z-index': '-10000000',
+						border: 'none',
+						'border-color': 'transparent',
+						'resize': 'none',
+						'display': $(real_obj).css('display')
+					});
+
+					$(default_obj).attr('tabindex','-1')
+									.attr('name',$(real_obj)
+									.attr('name')+defaultIdSuffix)
+									.attr('id', $(this)[0].id + defaultIdSuffix);
+			
+					$(default_obj).val(msg)
+									.addClass(defaultTextClassName);
 					
 					real_obj.show_default_text = function() {
 						
@@ -50,38 +59,42 @@
 						$(this).css('border-color','transparent');
 						$(this).css('background-image','url("data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==")');
 						$(this).css('background-repeat','repeat');
+						
+						this.is_jquery_default_text_shown = true;
 					}
 					
 					real_obj.hide_default_text = function() {
+						
 						$(this).css('background-color',real_obj.save_background);
 						$(this).css('border-color',real_obj.save_border);
 						$(this).css('background-image',real_obj.save_background_image);
 						$(this).css('background-repeat',real_obj.save_background_repeat);
+						
+						this.is_jquery_default_text_shown = false;
 					}
 			
+					
+	                
+	                $(real_obj).focus(function() {
+						
+							if (this.is_jquery_default_text_shown == true) {
+								this.hide_default_text();
+							}
+						
+	                });
+
+	                $(real_obj).blur(function() {
+				
+		                    if ($(real_obj).val() == "") {
+		                        this.show_default_text();
+							}
+	                });
+					
 					if ($(real_obj).val() == "") {
 	                    real_obj.show_default_text();
 	                } else {
 						real_obj.hide_default_text();
 	                }
-	                
-	                var defaultClickHandler = function() {
-						
-							if ($(real_obj).css('background-color') == 'transparent') {
-								real_obj.hide_default_text();
-							}
-						
-	                };
-	
-	                $(real_obj).focus(defaultClickHandler);
-					
-
-	                $(real_obj).blur(function() {
-				
-		                    if ($(real_obj).val() == "") {
-		                        real_obj.show_default_text();
-							}
-	                });
 					
 				} else
 				{
@@ -93,3 +106,13 @@
         }        
     });    
 })(jQuery);
+
+
+/*
+ * JSizes - JQuery plugin v0.33
+ *
+ * Licensed under the revised BSD License.
+ * Copyright 2008-2010 Bram Stein
+ * All rights reserved.
+ */
+(function(b){var a=function(c){return parseInt(c,10)||0};b.each(["min","max"],function(d,c){b.fn[c+"Size"]=function(g){var f,e;if(g){if(g.width!==undefined){this.css(c+"-width",g.width)}if(g.height!==undefined){this.css(c+"-height",g.height)}return this}else{f=this.css(c+"-width");e=this.css(c+"-height");return{width:(c==="max"&&(f===undefined||f==="none"||a(f)===-1)&&Number.MAX_VALUE)||a(f),height:(c==="max"&&(e===undefined||e==="none"||a(e)===-1)&&Number.MAX_VALUE)||a(e)}}}});b.fn.isVisible=function(){return this.is(":visible")};b.each(["border","margin","padding"],function(d,c){b.fn[c]=function(e){if(e){if(e.top!==undefined){this.css(c+"-top"+(c==="border"?"-width":""),e.top)}if(e.bottom!==undefined){this.css(c+"-bottom"+(c==="border"?"-width":""),e.bottom)}if(e.left!==undefined){this.css(c+"-left"+(c==="border"?"-width":""),e.left)}if(e.right!==undefined){this.css(c+"-right"+(c==="border"?"-width":""),e.right)}return this}else{return{top:a(this.css(c+"-top"+(c==="border"?"-width":""))),bottom:a(this.css(c+"-bottom"+(c==="border"?"-width":""))),left:a(this.css(c+"-left"+(c==="border"?"-width":""))),right:a(this.css(c+"-right"+(c==="border"?"-width":"")))}}}})})(jQuery);
