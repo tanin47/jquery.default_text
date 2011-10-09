@@ -10,14 +10,14 @@ See demo: http://tanin.nanakorn.com/default_text
 Alternative solution
 ---------------------
 
-Alternative solution is to use HTML5's placeholder attribute. But, sadly, MSIE's family has not support it yet.
+Alternative solution is to use HTML5's placeholder attribute. But, sadly, MSIE's family has not supported it yet.
 
 
 How it works
 ------------------
 A text input, which contains the default text, is cloned (using jQuery.clone()).
-Then, it is placed exactly behind the real textbox.
-Then, we make the real textbox transparent.
+
+Then, it is placed exactly behind the real textbox, and we make the real textbox transparent.
 
 It is only when the real textbox is focused, it is made opaque.
 
@@ -49,9 +49,9 @@ $('#test_textbox').default_text('this is default...', {defaultClass: "default"})
 
 Authors
 -------------------
-Tanin Na Nakorn
-Sergiu Rata
-Nilobol Ariyamongkollert
+* Tanin Na Nakorn
+* Sergiu Rata
+* Nilobol Ariyamongkollert
 
 
 License
