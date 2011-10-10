@@ -31,13 +31,15 @@
 					default_obj = $(this).clone();
 					$(default_obj).insertBefore(this);
 					
+					var style = jquery_default_text_helper.css($(real_obj));
+					$(default_obj).css(style);
+
+					
 					$(default_obj).css({
 						position: 'absolute',
 						top: (pos.top + marginTop) + "px", 
 						left: (pos.left + marginLeft) + "px",
 						'z-index': '-10000000',
-						border: 'none',
-						'border-color': 'transparent',
 						'resize': 'none',
 						'display': $(real_obj).css('display')
 					});
@@ -62,6 +64,8 @@
 						$(this).css('background-image','url("data:image/gif;base64,R0lGODlhAQABAPAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==")');
 						$(this).css('background-repeat','repeat');
 						
+						$(default_obj).show();
+						
 						this.is_jquery_default_text_shown = true;
 					}
 					
@@ -71,6 +75,8 @@
 						$(this).css('border-color',real_obj.save_border);
 						$(this).css('background-image',real_obj.save_background_image);
 						$(this).css('background-repeat',real_obj.save_background_repeat);
+						
+						$(default_obj).hide();
 						
 						this.is_jquery_default_text_shown = false;
 					}
@@ -108,6 +114,41 @@
         }        
     });    
 })(jQuery);
+
+var jquery_default_text_helper = {};
+
+jquery_default_text_helper.css = function(a){
+    var sheets = document.styleSheets, o = {};
+    for(var i in sheets) {
+        var rules = sheets[i].rules || sheets[i].cssRules;
+        for(var r in rules) {
+            if(a.is(rules[r].selectorText)) {
+                o = $.extend(o, css2json(rules[r].style), css2json(a.attr('style')));
+            }
+        }
+    }
+    return o;
+};
+
+jquery_default_text_helper.css2json = function(css){
+	var s = {};
+	if(!css) return s;
+	if(css instanceof CSSStyleDeclaration) {
+	    for(var i in css) {
+	        if((css[i]).toLowerCase) {
+	            s[(css[i]).toLowerCase()] = (css[css[i]]);
+	        }
+	    }
+	} else if(typeof css == "string") {
+	    css = css.split("; ");          
+	    for (var i in css) {
+	        var l = css[i].split(": ");
+	        s[l[0].toLowerCase()] = (l[1]);
+	    };
+	}
+	return s;
+};
+
 
 
 /*
