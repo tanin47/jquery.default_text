@@ -22,6 +22,10 @@
 				
 				if ($('#' + $(this)[0].id + defaultIdSuffix).length == 0) {
 					
+					if ($(real_obj).css('position') == "static") {
+						$(real_obj).css('position', 'relative'); // otherwise, z-index won't work
+					}
+					
 					var pos = $(real_obj).position();
 					var marginLeft = $(real_obj).margin().left;
 					var marginTop = $(real_obj).margin().top;
@@ -34,13 +38,19 @@
 					var style = jquery_default_text_helper.css($(real_obj));
 					$(default_obj).css(style);
 
+					var zIndex = parseInt($(real_obj).css('z-index'));
+					
+					if (isNaN(zIndex)) {
+						$(real_obj).css('z-index', 1);
+						zIndex = 1;
+					}
 					
 					$(default_obj).css({
 						position: 'absolute',
 						top: (pos.top + marginTop) + "px", 
 						left: (pos.left + marginLeft) + "px",
-						'z-index': '-10000000',
 						'resize': 'none',
+						'z-index': (zIndex-1),
 						'display': $(real_obj).css('display')
 					});
 
@@ -123,7 +133,7 @@ jquery_default_text_helper.css = function(a){
         var rules = sheets[i].rules || sheets[i].cssRules;
         for(var r in rules) {
             if(a.is(rules[r].selectorText)) {
-                o = $.extend(o, css2json(rules[r].style), css2json(a.attr('style')));
+                o = $.extend(o, this.css2json(rules[r].style), this.css2json(a.attr('style')));
             }
         }
     }
